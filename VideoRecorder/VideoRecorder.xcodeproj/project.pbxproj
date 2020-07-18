@@ -62,18 +62,50 @@
 		BD891F28234504D00035EB8C /* VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				C2D6FCDE24C28D0A00B00A78 /* Resources */,
+				C2D6FCDF24C28D2300B00A78 /* Storyboard */,
+				C2D6FCE024C28D5300B00A78 /* View Controllers */,
+				C2D6FCE124C28D5C00B00A78 /* Views */,
+			);
+			path = VideoRecorder;
+			sourceTree = "<group>";
+		};
+		C2D6FCDE24C28D0A00B00A78 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				BD891F29234504D00035EB8C /* AppDelegate.swift */,
 				BD891F2B234504D00035EB8C /* SceneDelegate.swift */,
-				BD891F2D234504D00035EB8C /* CameraViewController.swift */,
-				BD891F3D2345055E0035EB8C /* CameraPreviewView.swift */,
-				BD94511C24894C08007D5FB0 /* VideoPlayerView.swift */,
-				BD891F41234505DB0035EB8C /* ViewController.swift */,
-				BD891F3F234505930035EB8C /* Main.storyboard */,
 				BD891F32234504D20035EB8C /* Assets.xcassets */,
 				BD891F34234504D20035EB8C /* LaunchScreen.storyboard */,
 				BD891F37234504D20035EB8C /* Info.plist */,
 			);
-			path = VideoRecorder;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C2D6FCDF24C28D2300B00A78 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				BD891F3F234505930035EB8C /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		C2D6FCE024C28D5300B00A78 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BD891F2D234504D00035EB8C /* CameraViewController.swift */,
+				BD891F41234505DB0035EB8C /* ViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		C2D6FCE124C28D5C00B00A78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BD891F3D2345055E0035EB8C /* CameraPreviewView.swift */,
+				BD94511C24894C08007D5FB0 /* VideoPlayerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,7 +322,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
-				INFOPLIST_FILE = VideoRecorder/Info.plist;
+				INFOPLIST_FILE = VideoRecorder/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -308,7 +340,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
-				INFOPLIST_FILE = VideoRecorder/Info.plist;
+				INFOPLIST_FILE = VideoRecorder/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

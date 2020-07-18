@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  VideoRecorder
-//
-//  Created by Paul Solt on 10/2/19.
-//  Copyright © 2019 Lambda, Inc. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
