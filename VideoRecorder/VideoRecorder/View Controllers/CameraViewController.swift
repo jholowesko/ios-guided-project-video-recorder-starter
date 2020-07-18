@@ -24,6 +24,9 @@ class CameraViewController: UIViewController {
 		cameraView.videoPlayerView.videoGravity = .resizeAspectFill
         
         setUpCaptureSession()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapeGesture(_:)))
+        view.addGestureRecognizer(tapGesture)
 	}
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,6 +52,25 @@ class CameraViewController: UIViewController {
 	}
 	
     // MARK: - Methods
+    
+    @objc private func handleTapeGesture(_ tapGesture: UITapGestureRecognizer) {
+        print("Tap")
+        
+        switch tapGesture.state {
+
+        case .ended:
+            replayMovie()
+        default:
+            break // ignore all other states
+        }
+    }
+    
+    private func replayMovie() {
+        guard let player = player else { return }
+        
+        player.seek(to: .zero)
+        player.play()
+    }
     
     private func setUpCaptureSession() {
         
