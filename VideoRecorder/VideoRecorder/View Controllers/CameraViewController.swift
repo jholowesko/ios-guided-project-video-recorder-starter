@@ -6,6 +6,7 @@ class CameraViewController: UIViewController {
     // MARK: - Properties
     
     lazy private var captureSession = AVCaptureSession()
+    lazy private var fileOutput = AVCaptureMovieFileOutput()
     
     // MARK: - IBOutlets
     
@@ -38,7 +39,11 @@ class CameraViewController: UIViewController {
     // MARK: - IBActions
     
     @IBAction func recordButtonPressed(_ sender: Any) {
-
+        if fileOutput.isRecording {
+            fileOutput.stopRecording()
+        } else {
+            fileOutput.startRecording(to: newRecordingURL(), recordingDelegate: self)
+        }
 	}
 	
     // MARK: - Methods
@@ -66,7 +71,12 @@ class CameraViewController: UIViewController {
         
         // Add outputs
         
+        
         // Recording to disk
+        guard captureSession.canAddOutput(fileOutput) else {
+            fatalError("Cannot record to disk")
+        }
+        captureSession.addOutput(fileOutput)
         
         captureSession.commitConfiguration()
         
@@ -98,5 +108,29 @@ class CameraViewController: UIViewController {
 		let fileURL = documentsDirectory.appendingPathComponent(name).appendingPathExtension("mov")
 		return fileURL
 	}
+    
+    private func updateViews() {
+        recordButton.isSelected = fileOutput.isRecording
+    }
 }
 
+// MARK: - Extensions
+
+extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if let error = error {
+            print("Video recording Error: \(error)")
+        }
+        
+        print("Did finish recording")
+        
+        updateViews()
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        // Update UI
+        print("Did start recording \(fileURL)")
+        
+        updateViews()
+    }
+}
