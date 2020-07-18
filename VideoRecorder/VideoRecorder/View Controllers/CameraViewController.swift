@@ -8,6 +8,8 @@ class CameraViewController: UIViewController {
     lazy private var captureSession = AVCaptureSession()
     lazy private var fileOutput = AVCaptureMovieFileOutput()
     
+    private var player: AVPlayer!
+    
     // MARK: - IBOutlets
     
     @IBOutlet var recordButton: UIButton!
@@ -112,6 +114,22 @@ class CameraViewController: UIViewController {
     private func updateViews() {
         recordButton.isSelected = fileOutput.isRecording
     }
+    
+    private func playMovie(url: URL) {
+        player = AVPlayer(url: url)
+        
+        let playerLayer = AVPlayerLayer(player: player)
+        
+        var topRect = view.bounds
+        topRect.size.height = topRect.size.height / 4
+        topRect.size.width = topRect.size.width / 4
+        topRect.origin.y = view.layoutMargins.top
+        
+        playerLayer.frame = topRect
+        view.layer.addSublayer(playerLayer)
+        
+        player.play()
+    }
 }
 
 // MARK: - Extensions
@@ -120,6 +138,8 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
             print("Video recording Error: \(error)")
+        } else {
+            playMovie(url: outputFileURL)
         }
         
         print("Did finish recording")
