@@ -91,8 +91,12 @@ class CameraViewController: UIViewController {
         }
         
         // audio
-        
-        
+        let microphone = bestAudio()
+        guard let audioInput = try? AVCaptureDeviceInput(device: microphone),
+            captureSession.canAddInput(audioInput) else {
+                fatalError("Can't create microphone input")
+        }
+        captureSession.addInput(audioInput)
         // Add outputs
         
         
@@ -119,6 +123,13 @@ class CameraViewController: UIViewController {
         }
         
         fatalError("No camera on the device (or you're running this on a Simulator - which isn't supported)")
+    }
+    
+    private func bestAudio() -> AVCaptureDevice {
+        if let device = AVCaptureDevice.default(for: .audio) {
+            return device
+        }
+        fatalError("No audio")
     }
     
 	/// Creates a new file URL in the documents directory
