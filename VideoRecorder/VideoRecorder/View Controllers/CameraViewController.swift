@@ -1,7 +1,12 @@
 import UIKit
+import AVFoundation
 
 class CameraViewController: UIViewController {
 
+    // MARK: - Properties
+    
+    lazy private var captureSession = AVCaptureSession()
+    
     // MARK: - IBOutlets
     
     @IBOutlet var recordButton: UIButton!
@@ -14,6 +19,8 @@ class CameraViewController: UIViewController {
 
 		// Resize camera preview to fill the entire screen
 		cameraView.videoPlayerView.videoGravity = .resizeAspectFill
+        
+        setUpCaptureSession()
 	}
 
     // MARK: - IBActions
@@ -23,6 +30,38 @@ class CameraViewController: UIViewController {
 	}
 	
     // MARK: - Methods
+    
+    private func setUpCaptureSession() {
+        
+        captureSession.beginConfiguration()
+        
+        // Add inputs
+        
+        // video
+        
+        // audio
+        
+        // Add outputs
+        
+        // Live preview
+        
+        // Recording to disk
+        
+        captureSession.commitConfiguration()
+    }
+    
+    private func bestCamera() -> AVCaptureDevice {
+        // All iPhones have a wide angle camera (front & back)
+        if let ultraWideCamera = AVCaptureDevice.default(.builtInUltraWideCamera, for: .video, position: .back) {
+            return ultraWideCamera
+        }
+        
+        if let wideCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+            return wideCamera
+        }
+        
+        fatalError("No camera on the device (or you're running this on a Simulator - which isn't supported)")
+    }
     
 	/// Creates a new file URL in the documents directory
 	private func newRecordingURL() -> URL {
