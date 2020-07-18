@@ -22,6 +22,18 @@ class CameraViewController: UIViewController {
         
         setUpCaptureSession()
 	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        captureSession.startRunning()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        captureSession.stopRunning()
+    }
 
     // MARK: - IBActions
     
@@ -36,18 +48,30 @@ class CameraViewController: UIViewController {
         captureSession.beginConfiguration()
         
         // Add inputs
+        let camera = bestCamera()
         
         // video
+        guard let captureInput = try? AVCaptureDeviceInput(device: camera),
+            captureSession.canAddInput(captureInput) else {
+                fatalError("Can't create the input from the camera")
+        }
+        captureSession.addInput(captureInput)
+        
+        if captureSession.canSetSessionPreset(.hd1920x1080) {
+            captureSession.sessionPreset = .hd1920x1080
+        }
         
         // audio
         
-        // Add outputs
         
-        // Live preview
+        // Add outputs
         
         // Recording to disk
         
         captureSession.commitConfiguration()
+        
+        // Live Preview
+        cameraView.session = captureSession
     }
     
     private func bestCamera() -> AVCaptureDevice {
