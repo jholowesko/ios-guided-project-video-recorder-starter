@@ -2,10 +2,13 @@ import UIKit
 
 class CameraViewController: UIViewController {
 
+    // MARK: - IBOutlets
+    
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var cameraView: CameraPreviewView!
 
-
+    // MARK: - View Lifecycle
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -13,11 +16,14 @@ class CameraViewController: UIViewController {
 		cameraView.videoPlayerView.videoGravity = .resizeAspectFill
 	}
 
-
+    // MARK: - IBActions
+    
     @IBAction func recordButtonPressed(_ sender: Any) {
 
 	}
 	
+    // MARK: - Methods
+    
 	/// Creates a new file URL in the documents directory
 	private func newRecordingURL() -> URL {
 		let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
